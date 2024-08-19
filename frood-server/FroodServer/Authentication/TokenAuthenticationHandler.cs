@@ -15,6 +15,7 @@ public class TokenAuthenticationHandler(
 {
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
+        return AuthenticateResult.NoResult();
         // Check headers
         if (!Request.Headers.ContainsKey(Options.SpaceTokenName))
         {
