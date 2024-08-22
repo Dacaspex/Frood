@@ -1,8 +1,4 @@
-#!/bin/bash
-
-$cwd = Get-Location
-
-scriptRoot=dirname "$0"
+scriptRoot="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 webappLocation=${scriptRoot}/../frood-webapp
 serverLocation=${scriptRoot}/../frood-server/FroodServer
 outputLocation=${scriptRoot}/../frood-build
@@ -22,14 +18,9 @@ mv -f ./build $serverWwwRootLocation
 # Build server
 echo "Building server"
 cd $serverLocation
-dotnet build $serverProjectName \
-    --configuration $serverBuildConfiguration \
-    --arch $serverBuildArch \
-    --os $serverBuildOs
 
 dotnet publish $serverProjectName \
-    --no-build \
     --configuration $serverBuildConfiguration \
-    --arch $serverBuildArch \
-    --os $serverBuildOs \
+    --runtime linux-arm64 \
+    --self-contained \
     --output $serverBuildOutput
