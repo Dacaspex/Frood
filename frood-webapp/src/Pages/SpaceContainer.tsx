@@ -19,8 +19,8 @@ const SpaceContainer = () => {
     const onSave = async (partnerId:string, moodReport:MoodReportType) => {
         setFetching(true);
         await PartnerMoodApi.updateMoodReport(
-            authenticationContext.spaceId,
-            authenticationContext.partnerSecret,
+            authenticationContext.spaceId!,
+            authenticationContext.partnerSecret!,
             partnerId,
             moodReport
         );
@@ -29,7 +29,7 @@ const SpaceContainer = () => {
 
     useEffect(() => {
         async function fetchData() {
-            var spaceResponse = await PartnerMoodApi.getSpace(authenticationContext.spaceId, authenticationContext.partnerSecret);
+            var spaceResponse = await PartnerMoodApi.getSpace(authenticationContext.spaceId!, authenticationContext.partnerSecret!);
             setSpace(spaceResponse);
             setFetching(false);
         }
