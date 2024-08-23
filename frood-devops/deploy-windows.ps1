@@ -32,10 +32,6 @@ try
         --arch $serverBuildArch `
         --os $serverBuildOs `
         --output $serverBuildOutput
-
-    # Run
-    Write-Host "Running app"
-    Set-Location $outputLocation
 }
 finally
 {

@@ -4,6 +4,7 @@ import PartnerCardList from './PartnerCardList';
 import MoodReport from './MoodReport';
 import PartnerMoodApi from '../PartnerApi/PartnerMoodApi';
 import { AuthenticationContext } from '../Contexts/AuthenticationContext';
+import { MoodReport as MoodReportType, Space } from '../types';
 
 const storageKeys = {
     homePartnerIdKey: 'home-partner-id-key'
@@ -12,10 +13,10 @@ const storageKeys = {
 const SpaceContainer = () => {
     const authenticationContext = useContext(AuthenticationContext);
 
-    let [fetching, setFetching] = useState(true);
-    let [space, setSpace] = useState(null);
+    let [fetching, setFetching] = useState<boolean>(true);
+    let [space, setSpace] = useState<Space|null>(null);
 
-    const onSave = async (partnerId, moodReport) => {
+    const onSave = async (partnerId:string, moodReport:MoodReportType) => {
         setFetching(true);
         await PartnerMoodApi.updateMoodReport(
             authenticationContext.spaceId,
@@ -24,10 +25,6 @@ const SpaceContainer = () => {
             moodReport
         );
         setFetching(false);
-    }
-
-    const onViewPartner = () => {
-
     }
 
     useEffect(() => {
@@ -98,7 +95,7 @@ const SpaceContainer = () => {
         
     }, []);
 
-    if (fetching) {
+    if (fetching || space === null) {
         return (
             <span>Fetching data...</span>
         )
@@ -115,8 +112,7 @@ const SpaceContainer = () => {
     return (
         <>
             <PartnerCardList 
-                partners={ partners }
-                onViewPartner={ partnerId => onViewPartner(partnerId) } />
+                partners={ partners } />
             <MoodReport 
                 moodReport={ myself.moodReport }
                 onSave={ () => onSave(myself.id, myself.moodReport) } />

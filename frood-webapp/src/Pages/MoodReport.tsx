@@ -1,7 +1,13 @@
 import Card from '../Components/Card/Card';
 import TrafficLight from '../Components/TrafficLight/TrafficLight';
+import { MoodCategory, MoodTopic, MoodReport as MoodReportType, Mood } from '../types';
 
-const trafficLightToMood = colour => {
+type Props = {
+    moodReport: MoodReportType;
+    onSave: () => void; 
+}
+
+function trafficLightToMood(colour: string): Mood {
     switch (colour) {
         case 'red':
             return 'NO';
@@ -9,10 +15,12 @@ const trafficLightToMood = colour => {
             return 'INDIFFERENT';
         case 'green':
             return 'YES';
+        default:
+            throw Error();
     };
 }
 
-const moodToTrafficLight = mood => {
+function moodToTrafficLight(mood: Mood):string {
     switch (mood.toUpperCase()) {
         case 'NO':
             return 'red';
@@ -20,11 +28,13 @@ const moodToTrafficLight = mood => {
             return 'orange';
         case 'YES':
             return 'green';
+        default:
+            throw Error();
     };
 }
 
-const MoodReport = ({ moodReport, onSave }) => {
-    const onStateUpdated = (category, topic, colour) => {
+const MoodReport = ({ moodReport, onSave }:Props) => {
+    const onStateUpdated = (category:MoodCategory, topic:MoodTopic, colour:string) => {
         const mood = trafficLightToMood(colour);
 
         for (const moodCategory of moodReport.moodCategories) {
