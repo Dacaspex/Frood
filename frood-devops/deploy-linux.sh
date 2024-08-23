@@ -14,7 +14,7 @@ echo "Building webapp"
 cd $webappLocation
 npm ci
 npm run build
-mv -f ./build $serverWwwRootLocation
+mv -f ./dist $serverWwwRootLocation
 
 # Build server
 echo "Building server"
