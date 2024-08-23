@@ -12,6 +12,7 @@ serverBuildOutput=$outputLocation
 # Build webapp
 echo "Building webapp"
 cd $webappLocation
+npm ci
 npm run build
 mv -f ./build $serverWwwRootLocation
 
