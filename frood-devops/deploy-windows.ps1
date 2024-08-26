@@ -16,22 +16,22 @@ try
     Write-Host "Building webapp"
     Set-Location $webappLocation
     npm run build
-    Move-Item -Path ./build -Destination $serverWwwRootLocation -Force
+    Move-Item -Path ./dist/* -Destination $serverWwwRootLocation -Force
 
     # Build server
-    Write-Host "Building server"
-    Set-Location $serverLocation
-    dotnet build $serverProjectName `
-        --configuration $serverBuildConfiguration `
-        --arch $serverBuildArch `
-        --os $serverBuildOs
+    # Write-Host "Building server"
+    # Set-Location $serverLocation
+    # dotnet build $serverProjectName `
+    #     --configuration $serverBuildConfiguration `
+    #     --arch $serverBuildArch `
+    #     --os $serverBuildOs
 
-    dotnet publish $serverProjectName `
-        --no-build `
-        --configuration $serverBuildConfiguration `
-        --arch $serverBuildArch `
-        --os $serverBuildOs `
-        --output $serverBuildOutput
+    # dotnet publish $serverProjectName `
+    #     --no-build `
+    #     --configuration $serverBuildConfiguration `
+    #     --arch $serverBuildArch `
+    #     --os $serverBuildOs `
+    #     --output $serverBuildOutput
 }
 finally
 {
