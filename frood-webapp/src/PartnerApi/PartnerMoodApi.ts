@@ -1,11 +1,16 @@
 import { MoodReport } from "../types";
 
 const PartnerMoodApi = {
-    URL: 'http://localhost:5166',
+    URL: 'undefined',
     HEADER_SPACE_ID: 'X-SpaceId',
     HEADER_PARTNER_SECRET: 'X-PartnerSecret',
 
+    setup: function() {
+        this.URL = import.meta.env.VITE_API_URL;
+    },
+
     login: async function(spaceId:string, partnerSecret:string) {
+        console.log(this.URL);
         const result = await this._post(this.URL + '/Authentication', spaceId, partnerSecret, { spaceId, partnerSecret });
         return result.ok;
     },
